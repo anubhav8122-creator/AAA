@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Magical Birthday Journey</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth Scroll Effect */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- NEW BEAUTIFUL FONT IMPORTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:300;400;600&family=Great+Vibes&display=swap');
+        
+        body {
+            font-family: 'Cormorant Garamond', serif; /* Elegant default font */
+            /* --- VIBRANT NEW BACKGROUND --- */
+            background: radial-gradient(circle at top left, #6b21a8, #c026d3, #db2777);
+            background-size: 800% 800%; /* Larger for smoother transitions */
+            animation: gradient-animation 20s ease infinite alternate; /* Slower, alternate animation */
+            transition: background 2s ease-in-out, background-color 0.5s ease; 
+            overflow-x: hidden;
+            min-height: 100vh; 
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="gold" d="M12 2l3.09 6.35 6.91.75-5 4.87 1.18 6.88-6.18-3.25-6.18 3.25 1.18-6.88-5-4.87 6.91-.75z"/></svg>') 15 15, auto;
+            color: #f3e8ff; 
+        }
+        
+        /* === BLACKOUT CLASS FOR FINAL STAGE === */
+        body.blackout {
+            background: black;
+            animation: none; /* Stop the gradient animation */
+        }
+
+        /* --- Updated Gradient Animation for more vibrancy --- */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        /* Font Utility Classes */
+        .font-magical {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
+        }
+        
+        .font-handwritten {
+            font-family: 'Great Vibes', cursive;
+        }
+        
+        /* Neon Glow Text Style - Deepened for Stage 1 */
+        .neon-glow {
+            color: #fce7f3;
+            text-shadow: 
+                0 0 15px rgba(244, 114, 182, 0.7), /* Deeper pink base */
+                0 0 30px rgba(244, 114, 182, 0.5), 
+                0 0 45px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Stage Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards; 
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* --- FLY-IN SENTENCE ANIMATION STYLES (Includes Bounce) --- */
+        .fly-in-line {
+            display: block; 
+            opacity: 0;
+        }
+        
+        .fly-in-line.fly-in-animation {
+            animation: flyIn 1.5s cubic-bezier(0.2, 1.2, 0.6, 1.2) forwards; 
+        }
+
+        @keyframes flyIn {
+            0% {
+                opacity: 0;
+                transform: translate3d(var(--x-start), var(--y-start), 0) 
+                           rotate(var(--r-start)) 
+                           scale(0.2);
+            }
+            75% {
+                opacity: 1; 
+                /* Land and Overshoot (Bounce Up/Out) */
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(1.1); 
+            }
+            90% {
+                /* Recoil (Bounce Down/In) */
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(0.95); 
+            }
+            100% {
+                /* Settle */
+                opacity: 1;
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+            }
+        }
+        /* --- END FLY-IN ANIMATION STYLES --- */
+
+        /* --- NEW DYNAMIC BALLOON STYLES --- */
+        .dynamic-balloon {
+            position: fixed;
+            width: 70px; /* Slightly smaller and responsive */
+            height: 90px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none; /* Crucial: don't block clicks on game elements */
+            z-index: 50; /* Above game elements, below overlay */
+            transform: translate(-50%, -50%); /* Center the balloon on the cursor */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            animation: riseAndFloat 5s ease-out forwards;
+        }
+
+        .dynamic-balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: calc(50% - 1px);
+            width: 2px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes riseAndFloat {
+            0% { 
+                opacity: 0.8; 
+                transform: translate(-50%, -50%) scale(0.8); 
+            }
+            10% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1.1); /* Initial pop */
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(var(--end-x, -50%), -100vh) scale(0.5); 
+            }
+        }
+        /* --- END DYNAMIC BALLOON STYLES --- */
+
+
+        /* Refined Buttons */
+        .pop-button {
+            font-family: 'Cinzel', serif;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            /* Added background for floating buttons */
+            background: rgba(236, 72, 153, 0.5); /* Semi-transparent Pink */
+        }
+        .pop-button:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+        .pop-button:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .pop-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* --- STAGE 1 CREATIVE ENHANCEMENTS --- */
+        
+        /* Swirling Energy Border around Ribbon */
+        #ribbon-container {
+            position: relative;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        #ribbon-container::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border-radius: 10px;
+            /* Use a gradient border for a glowing, swirling effect */
+            background: conic-gradient(from 180deg at 50% 50%, #db2777 0deg, #a78bfa 90deg, #fcd34d 180deg, #db2777 270deg, #db2777 360deg);
+            z-index: 0;
+            opacity: 0.7;
+            filter: blur(10px);
+            animation: rotate-border 4s linear infinite;
+        }
+
+        @keyframes rotate-border {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Ensure ribbon content is above the swirl border */
+        .ribbon-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Scissors Animation (Subtle shake when hovering) */
+        #scissors-icon {
+            animation: float-scissors 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes float-scissors {
+            from { transform: translateY(-3px) rotate(-5deg); }
+            to { transform: translateY(3px) rotate(5deg); }
+        }
+
+        /* Title specific styling */
+        .stage-1-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 7rem; /* Adjusted for better look on all screens */
+            line-height: 1.1;
+            /* Further glow enhancement */
+            text-shadow: 
+                0 0 20px #fce7f3, 
+                0 0 40px #db2777, 
+                0 0 60px #f472b6;
+        }
+
+
+        /* --- FINAL STAGE EFFECTS --- */
+        .confetti-piece { position: fixed; opacity: 0; z-index: 1000; }
+        @keyframes fall { 0% { opacity: 1; transform: translateY(-10vh) rotateZ(0deg) translateX(0); } 100% { opacity: 0; transform: translateY(110vh) rotateZ(1080deg) translateX(var(--fall-x)); } }
+        
+        /* Final Message Container */
+        .love-container { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            z-index: 9999; 
+            pointer-events: none; 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .big-heart { 
+            font-size: 15rem; 
+            color: #ef4444; 
+            text-shadow: 0 0 50px rgba(255, 0, 0, 0.8), 0 0 100px rgba(255, 0, 0, 0.4); 
+            animation: pulse-heart 1.5s infinite alternate; 
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+        @keyframes pulse-heart { 
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        .love-text { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 5rem; 
+            color: #fce7f3; 
+            margin-top: -50px; 
+            text-shadow: 0 0 20px #fce7f3, 0 0 40px #db2777; 
+            animation: love-text-glow 1s infinite alternate; 
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out; 
+        }
+        @keyframes love-text-glow { 
+            from { text-shadow: 0 0 20px #fce7f3, 0 0 40px #db2777; }
+            to { text-shadow: 0 0 25px #fce7f3, 0 0 50px #db2777; }
+        }
+        
+        /* Signature Style */
+        .love-signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #db2777; 
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 1s ease 2s; 
+            text-shadow: 0 0 5px rgba(219, 39, 119, 0.5);
+        }
+        
+        /* --- CAKE STYLES (Stage 10) --- */
+        .cake-container {
+            width: 100%;
+            max-width: 300px;
+            height: 350px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Candle styles */
+        .candle {
+            width: 8px;
+            height: 30px;
+            background: repeating-linear-gradient(45deg, #f87171, #f87171 5px, #fcd34d 5px, #fcd34d 10px);
+            border: 1px solid #7f1d1d;
+            border-radius: 2px;
+            position: absolute;
+            bottom: 120px;
+            transform-origin: bottom;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+        .flame {
+            width: 8px;
+            height: 15px;
+            background: linear-gradient(to top, #fcd34d, #fee2e2);
+            border-radius: 50% 50% 30% 30%;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            filter: drop-shadow(0 0 5px #fcd34d) drop-shadow(0 0 10px #fef3c7);
+            animation: flicker 0.2s infinite alternate;
+        }
+        .flame-hidden {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        @keyframes flicker {
+            from { transform: scaleY(1); opacity: 0.9; }
+            to { transform: scaleY(0.95); opacity: 1; }
+        }
+
+        /* Cake layer styles */
+        .cake-layer {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            border-radius: 50%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            filter: brightness(1.1);
+        }
+        .layer-1 { height: 60px; bottom: 0; background: #6366f1; } /* Base: Indigo */
+        .layer-2 { height: 50px; bottom: 40px; width: 90%; left: 5%; background: #db2777; } /* Middle: Pink */
+        .layer-3 { height: 40px; bottom: 80px; width: 80%; left: 10%; background: #fcd34d; } /* Top: Yellow */
+        
+        .icing {
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background: #fce7f3; 
+            border-radius: 50%;
+            top: -5px;
+            box-shadow: inset 0 3px 5px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- STAGE 12: FINAL CARD STYLES --- */
+        .final-card-content {
+            white-space: pre-wrap;
+            text-align: left;
+            padding: 10px;
+            color: #fff8e8;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            max-height: 60vh;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        .final-card-content::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        /* --- STAGE 4: PATTERN MATCH STYLES --- */
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .pattern-cell {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.1s ease, transform 0.1s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .pattern-cell:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+        .pattern-cell.correctly-clicked {
+            background-color: #6d28d9 !important; /* Indigo 700 */
+            box-shadow: 0 0 15px #6d28d9;
+        }
+
+        /* --- STAGE 9: UNSCRAMBLE STYLES --- */
+        .drop-target-unscramble {
+            min-height: 80px;
+            border: 3px dashed #a78bfa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+        .drop-target-unscramble.drag-over {
+            background-color: rgba(167, 139, 250, 0.3);
+            border-style: solid;
+        }
+        .drag-tile {
+            padding: 1rem 1.5rem;
+            background-color: #fce7f3;
+            color: #831843; 
+            font-size: 2.5rem;
+            font-family: 'Cinzel', serif;
+            border-radius: 8px;
+            cursor: grab;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s ease;
+            margin: 5px; 
+        }
+        .drag-tile:active {
+            cursor: grabbing;
+        }
+        
+        /* --- STAGE 6: MEMORY GAME STYLES --- */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+        }
+        .memory-tile {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            user-select: none;
+        }
+        .memory-tile:not(.illuminating):hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .memory-tile.illuminating {
+            background-color: #fcd34d; /* Yellow Glow */
+            box-shadow: 0 0 20px #fcd34d, 0 0 30px #fef3c7;
+            transform: scale(1.1);
+        }
+        .memory-tile.correct-click {
+             background-color: #10b981; /* Green Success */
+             box-shadow: 0 0 15px #10b981;
+        }
+
+        /* --- NEW STAGE 11: JIGSAW STYLES --- */
+        .jigsaw-piece-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+
+        .jigsaw-piece-target {
+            min-width: 100px; /* Base width, adjusts with flex */
+            height: 50px;
+            border: 2px dashed #fcd34d;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s;
+            flex-grow: 1; /* Allow targets to grow dynamically */
+        }
+        .jigsaw-piece-target.drag-over {
+            background-color: rgba(252, 211, 77, 0.2);
+            border-style: solid;
+        }
+        
+        .jigsaw-piece {
+            height: 50px;
+            background-color: #db2777; /* Pink */
+            color: #fce7f3;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            transition: transform 0.1s, box-shadow 0.1s;
+            user-select: none;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .jigsaw-piece:active {
+            cursor: grabbing;
+        }
+        /* Style for the container of the pieces to be dragged */
+        #jigsaw-source {
+            min-height: 100px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen relative">
+    
+    <!-- Audio Element for Background Music -->
+    <audio id="background-music" loop>
+        <source src="Dhun Song Instrumental.mp3" type="audio/mpeg">
+        <source src="Finding Her - Piano Cover by Ron.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Play Music Button/Overlay -->
+    <div id="audio-overlay" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center transition-opacity duration-500">
+        <button onclick="startMusicAndApp()" class="pop-button px-10 py-5 bg-pink-600/90 hover:bg-pink-500 text-white text-2xl rounded-full shadow-2xl animate-pulse">
+            Start the Magic ✨
+        </button>
+    </div>
+    
+    <!-- Containers for visual effects -->
+    <div id="confetti-container"></div>
+    <!-- Balloon container now holds dynamically created balloons -->
+    <div id="balloon-container" class="fixed top-0 left-0 w-full h-full pointer-events-none z-40 overflow-hidden"></div>
+
+
+    <!-- Main Container - All game stages are inside this -->
+    <div id="main-container" class="relative z-10 flex items-center justify-center min-h-screen p-4">
+
+        <!-- Stage 1: THE RIBBON CUT INTRO --><div id="stage-1" class="w-full max-w-3xl p-8 md:p-16 text-center hidden">
+            <!-- Enhanced Title Font and Glow -->
+            <h1 class="stage-1-title mb-6 text-pink-200 neon-glow font-handwritten">
+                A Grand Opening
+            </h1>
+            
+            <div class="text-to-animate">
+                <p class="text-2xl md:text-3xl text-purple-100 font-magical tracking-wider leading-relaxed">
+                    Cut the Ribbon to Begin Your Magical Birthday Journey
+                </p>
+            </div>
+            
+            <!-- Ribbon Cutting Area with Animated Border -->
+            <div id="ribbon-container" class="ribbon-container h-40 flex flex-col justify-center items-center cursor-pointer group" onclick="cutRibbon()">
+                <div class="ribbon-content">
+                    <!-- Scissors icon - has a subtle float animation via CSS -->
+                    <div id="scissors-icon" class="text-yellow-400 text-6xl absolute z-30 transition-all duration-500 group-hover:scale-110 drop-shadow-lg">✂️</div>
+                    
+                    <div class="flex items-center relative">
+                        <!-- Decorative Glow Line --><div class="absolute w-full h-1 bg-red-500/50 blur-md top-1/2 -translate-y-1/2"></div>
+                        <!-- Ribbon Left --><span id="ribbon-left" class="text-7xl md:text-8xl text-red-500 transition-all duration-1000 ease-in-out relative z-10 drop-shadow-2xl">🎀</span>
+                        <!-- Ribbon Right --><span id="ribbon-right" class="text-7xl md:text-8xl text-red-500 transition-all duration-1000 ease-in-out relative z-10 drop-shadow-2xl">🎀</span>
+                    </div>
+                </div>
+                
+                <p class="mt-6 text-lg text-purple-200 font-body italic opacity-80 z-10">Tap to cut the ribbon...</p>
+            </div>
+            
+            <div id="ribbon-message" class="mt-8 text-2xl text-pink-300 font-magical hidden animate-pulse">
+                The Portal Opens...
+            </div>
+        </div>
+        
+        <!-- Stage 2: PUZZLE 1: COLOR SEQUENCE -->
+        <div id="stage-2" class="hidden w-full max-w-2xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🗺️</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-yellow-100 font-magical neon-glow">The Ancient Map: Color Sequence</h2>
+            <!-- Inner puzzle container kept for structure -->
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center leading-relaxed">The map reveals the path to joy. Click the colors in the secret order of our relationship.</p>
+                    <p class="text-xl text-pink-200 font-handwritten text-center opacity-90">Clue: Pink (initials), Purple (love), Blue (calm).</p>
+                </div>
+                <div class="flex justify-center gap-4 py-6">
+                    <button id="color-pink" data-color="pink" class="w-20 h-20 rounded-xl bg-pink-500 hover:scale-105 transition-transform shadow-lg" onclick="handleColorClick('pink')"></button>
+                    <button id="color-purple" data-color="purple" class="w-20 h-20 rounded-xl bg-purple-500 hover:scale-105 transition-transform shadow-lg" onclick="handleColorClick('purple')"></button>
+                    <button id="color-blue" data-color="blue" class="w-20 h-20 rounded-xl bg-blue-500 hover:scale-105 transition-transform shadow-lg" onclick="handleColorClick('blue')"></button>
+                </div>
+                <div id="color-message" class="text-center text-lg h-6"></div>
+            </div>
+            <button id="stage-2-next" onclick="nextStage(3)" class="pop-button mt-10 px-10 py-4 bg-purple-600/80 hover:bg-purple-500/90 text-white text-xl rounded-full shadow-lg disabled:opacity-50" disabled>Sequence Complete 🔓</button>
+        </div>
+
+        <!-- Stage 3: PUZZLE 2: SLIDER CHALLENGE -->
+        <div id="stage-3" class="hidden w-full max-w-2xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🗝️</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-blue-100 font-magical neon-glow">The Celestial Key: Slider Lock</h2>
+            <!-- Inner puzzle container kept for structure -->
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center">The key is locked by the slider. Set the dial to your lucky two-digit number.</p>
+                    <p class="text-xl text-pink-200 font-handwritten text-center opacity-90">Clue: The number that holds the universe together (88).</p>
+                </div>
+                <div class="flex flex-col items-center py-6 px-4">
+                    <input type="range" min="0" max="100" value="0" id="magic-slider" class="w-full">
+                    <div class="mt-4 text-3xl font-magical"><span id="slider-value">0</span>%</div>
+                </div>
+                <div id="slider-message" class="text-center text-lg h-6"></div>
+            </div>
+            <button id="stage-3-next" onclick="nextStage(4)" class="pop-button mt-10 px-10 py-4 bg-fuchsia-600/80 hover:bg-fuchsia-500/90 text-white text-xl rounded-full shadow-lg disabled:opacity-50" disabled>Key Unlocked 🔑</button>
+        </div>
+
+        <!-- Stage 4: PUZZLE 3: PATTERN MATCH -->
+        <div id="stage-4" class="hidden w-full max-w-2xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🔮</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-purple-200 font-magical neon-glow">The Memory Vault: Pattern Lock</h2>
+            <!-- Inner puzzle container kept for structure -->
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center">The vault opens by tracing the four key points of a central heart shape.</p>
+                    <p class="text-xl text-pink-200 font-handwritten text-center opacity-90">Clue: Click the Top-Center, Middle-Left, Middle-Right, then Bottom-Center points (1, 3, 5, 7).</p>
+                </div>
+                <div class="pattern-grid" id="pattern-grid">
+                    <div class="pattern-cell" data-index="0" onclick="handlePatternClick(0)"></div>
+                    <div class="pattern-cell" data-index="1" onclick="handlePatternClick(1)"></div>
+                    <div class="pattern-cell" data-index="2" onclick="handlePatternClick(2)"></div>
+                    <div class="pattern-cell" data-index="3" onclick="handlePatternClick(3)"></div>
+                    <div class="pattern-cell" data-index="4" onclick="handlePatternClick(4)"></div>
+                    <div class="pattern-cell" data-index="5" onclick="handlePatternClick(5)"></div>
+                    <div class="pattern-cell" data-index="6" onclick="handlePatternClick(6)"></div>
+                    <div class="pattern-cell" data-index="7" onclick="handlePatternClick(7)"></div>
+                    <div class="pattern-cell" data-index="8" onclick="handlePatternClick(8)"></div>
+                </div>
+                <div id="pattern-message" class="text-center text-lg h-6"></div>
+            </div>
+            <button id="stage-4-next" onclick="nextStage(5)" class="pop-button mt-10 px-10 py-4 bg-fuchsia-600/80 hover:bg-fuchsia-500/90 text-white text-xl rounded-full shadow-lg" disabled>Vault Opened 💾</button>
+        </div>
+        
+        <!-- Stage 5: PUZZLE 4: GUESS THE DAY (Date Input) -->
+        <div id="stage-5" class="hidden w-full max-w-2xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🗓️</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-green-200 font-magical neon-glow">The Day Vault: Key Date</h2>
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center">Unlock the next path by entering the day our love became official.</p>
+                    <p class="text-xl text-pink-200 font-handwritten text-center opacity-90">Clue: The most romantic day of the year in 2023. (Feb 14, 2023)</p>
+                </div>
+                <div class="flex flex-col items-center py-6">
+                    <input type="date" id="date-input" class="w-full max-w-xs p-3 text-lg text-gray-800 rounded-lg shadow-inner focus:ring-4 focus:ring-green-400">
+                </div>
+                <div id="date-message" class="text-center text-lg h-6"></div>
+            </div>
+            <button id="stage-5-check" onclick="checkDate()" class="pop-button mt-10 px-10 py-4 bg-green-600/80 hover:bg-green-500/90 text-white text-xl rounded-full shadow-lg">Check Date</button>
+            <button id="stage-5-next" onclick="nextStage(6)" class="pop-button mt-10 px-10 py-4 bg-green-600/80 hover:bg-green-500/90 text-white text-xl rounded-full shadow-lg hidden">Date Confirmed ✅</button>
+        </div>
+
+        <!-- Stage 6: PUZZLE 5: MEMORY CHALLENGE -->
+        <div id="stage-6" class="hidden w-full max-w-2xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🌌</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-yellow-100 font-magical neon-glow">The Cosmic Constellation: Memory Sequence</h2>
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center">Repeat the sequence of lights from our favorite constellation. The sequence will grow!</p>
+                    <p class="text-xl text-pink-200 font-handwritten text-center opacity-90">Watch closely before the first click!</p>
+                </div>
+                
+                <div class="flex flex-col items-center py-6">
+                    <div class="memory-grid" id="memory-grid">
+                        <!-- Tiles will be generated by JS -->
+                    </div>
+                    <button id="memory-start-btn" onclick="startMemorySequence()" class="pop-button mt-8 px-8 py-3 bg-blue-600/80 hover:bg-blue-500/90 text-white text-lg rounded-full shadow-lg">Start Sequence</button>
+                    <div id="memory-message" class="text-center text-lg h-6 mt-4"></div>
+                </div>
+            </div>
+            <button id="stage-6-next" onclick="nextStage(7)" class="pop-button mt-10 px-10 py-4 bg-blue-600/80 hover:bg-blue-500/90 text-white text-xl rounded-full shadow-lg disabled:opacity-50" disabled>Sequence Mastered ✨</button>
+        </div>
+        
+        <!-- Stage 7: PUZZLE 6: CLICK COUNTER -->
+        <div id="stage-7" class="hidden w-full max-w-2xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🔥</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-red-200 font-magical neon-glow">The Final Gate: Age Counter</h2>
+            <!-- Inner puzzle container kept for structure -->
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center">To open the gate, you must input the exact number of years Ridhi has today.</p>
+                    <p class="text-xl text-pink-200 font-handwritten text-center opacity-90">Clue: Click the button exactly 16 times.</p>
+                </div>
+                <div class="flex flex-col items-center py-6">
+                    <div class="text-5xl font-magical mb-4">Clicks: <span id="click-count">0</span></div>
+                    <button id="click-btn" onclick="handleClickCounter()" class="pop-button px-10 py-4 bg-red-600/80 hover:bg-red-500/90 text-white text-xl rounded-full shadow-lg">Tap to Count 👆</button>
+                </div>
+                <div id="click-message" class="text-center text-lg h-6"></div>
+            </div>
+            <button id="stage-7-next" onclick="nextStage(8)" class="pop-button mt-10 px-10 py-4 bg-red-600/80 hover:bg-red-500/90 text-white text-xl rounded-full shadow-lg hidden">Gate Opened 🚪</button>
+        </div>
+
+        <!-- Stage 8: THE APOLOGY LETTER (No Puzzle) -->
+        <div id="stage-8" class="hidden w-full max-w-3xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">📝</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-pink-200 font-handwritten neon-glow">A Heartfelt Apology</h2>
+            <!-- Inner puzzle container kept for structure -->
+            <div class="text-left bg-white/5 p-10 rounded-2xl space-y-6 border border-white/10 italic relative overflow-hidden">
+                <div class="text-to-animate">
+                    <p class="text-3xl text-red-300 font-magical text-center mb-4">To my Bacha,</p>
+                    <p class="text-xl text-purple-50 font-body leading-relaxed text-justify">I know I mess up sometimes, and there are days when I'm just an idiot. Please know that even in those moments, my love for you never wavers. Every mistake is a lesson, and every challenge is worth it because I get to grow alongside you. You deserve the world, and I promise to be the best person I can be for you. I'm sorry for any tears I've caused, and I promise to only bring you smiles from now on.</p>
+                    <p class="text-2xl text-red-200 text-right font-handwritten mt-8">- Forever Yours, Anubhav.</p>
+                </div>
+            </div>
+            <button onclick="nextStage(9)" class="pop-button mt-10 px-10 py-4 bg-red-600/80 hover:bg-red-500/90 text-white text-xl rounded-full shadow-lg">See Our Memories 📸</button>
+        </div>
+
+        <!-- Stage 9: PUZZLE 7: WORD UNSCRAMBLE -->
+        <div id="stage-9" class="hidden w-full max-w-5xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🖼️</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-yellow-100 font-magical neon-glow">The Gallery Lock: Unscramble</h2>
+            <div class="text-to-animate">
+                <p class="text-xl text-purple-100 mb-10 font-body">Rearrange the tiles into the word that forms the foundation of our relationship.</p>
+            </div>
+            <!-- Drop Targets -->
+            <div class="grid grid-cols-4 md:grid-cols-4 gap-4 px-4">
+                <div id="drop-1" data-correct="L" class="drop-target-unscramble"></div>
+                <div id="drop-2" data-correct="O" class="drop-target-unscramble"></div>
+                <div id="drop-3" data-correct="V" class="drop-target-unscramble"></div>
+                <div id="drop-4" data-correct="E" class="drop-target-unscramble"></div>
+            </div>
+            <div class="mt-10 mb-6">
+                <h3 class="text-xl text-pink-200 font-magical mb-4">Drag and Drop the Letters:</h3>
+                <div id="drag-container" class="flex justify-center flex-wrap gap-4"></div>
+            </div>
+            <div id="unscramble-message" class="text-center text-lg h-6"></div>
+            <button id="stage-9-next" onclick="nextStage(10)" class="pop-button mt-10 px-10 py-4 bg-purple-600/80 hover:bg-purple-500/90 text-white text-xl rounded-full shadow-lg disabled:opacity-50" disabled>The Birthday Cake 🎂</button>
+        </div>
+
+        <!-- Stage 10: THE BIRTHDAY CAKE -->
+        <div id="stage-10" class="hidden w-full max-w-3xl p-8 md:p-12 text-center">
+            <h2 class="text-5xl md:text-6xl mb-6 text-yellow-100 font-handwritten neon-glow">
+                Happy Birthday, My Love!
+            </h2>
+            <div class="text-to-animate">
+                <p class="text-2xl text-purple-100 font-body text-center leading-relaxed mb-8">
+                    Blow out the candles and make a wish. It's time to celebrate!
+                </p>
+            </div>
+
+            <div class="cake-container">
+                <!-- Cake Layers -->
+                <div class="cake-layer layer-1"></div>
+                <div class="cake-layer layer-2">
+                    <div class="icing"></div>
+                </div>
+                <div class="cake-layer layer-3">
+                    <div class="icing"></div>
+                </div>
+
+                <!-- Candles -->
+                <div id="candle-1" class="candle" style="left: 30%;">
+                    <div class="flame" id="flame-1"></div>
+                </div>
+                <div id="candle-2" class="candle" style="left: 45%;">
+                    <div class="flame" id="flame-2"></div>
+                </div>
+                <div id="candle-3" class="candle" style="left: 60%;">
+                    <div class="flame" id="flame-3"></div>
+                </div>
+
+                <!-- Confetti Cannon Indicator -->
+                <div id="wish-indicator" class="mt-4 text-pink-300 text-3xl font-magical h-10"></div>
+            </div>
+
+            <button id="blow-candles-btn" onclick="blowOutCandles()" class="pop-button mt-12 px-10 py-4 bg-pink-600/80 hover:bg-pink-500/90 text-white text-xl rounded-full shadow-lg">
+                Blow Out Candles! 💨
+            </button>
+            <button id="stage-10-next" onclick="nextStage(11)" class="pop-button mt-10 px-10 py-4 bg-purple-600/80 hover:bg-purple-500/90 text-white text-xl rounded-full shadow-lg hidden">
+                Next Challenge 🧩
+            </button>
+        </div>
+        
+        <!-- NEW Stage 11: JIGSAW PUZZLE REVEAL -->
+        <div id="stage-11" class="hidden w-full max-w-5xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">🧩</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-green-200 font-magical neon-glow">The Jigsaw Message: Reveal the Secret</h2>
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10">
+                <div class="text-to-animate">
+                    <p class="text-2xl text-purple-100 font-body text-center">Assemble the puzzle pieces below to reveal the final coded message.</p>
+                </div>
+                
+                <h3 class="text-xl text-pink-200 font-magical mb-4 mt-6">Drop Targets (The Message Grid):</h3>
+                <div id="jigsaw-target-container" class="jigsaw-piece-container mb-8">
+                    <!-- Jigsaw target slots will be generated here -->
+                </div>
+                
+                <h3 class="text-xl text-pink-200 font-magical mb-4">Shuffled Pieces:</h3>
+                <div id="jigsaw-source" class="jigsaw-piece-container">
+                    <!-- Jigsaw pieces to be dragged will be generated here -->
+                </div>
+
+                <div id="jigsaw-message" class="text-center text-lg h-6 mt-4"></div>
+            </div>
+            <button id="stage-11-next" onclick="nextStage(12)" class="pop-button mt-10 px-10 py-4 bg-green-600/80 hover:bg-green-500/90 text-white text-xl rounded-full shadow-lg disabled:opacity-50" disabled>
+                Read Final Letter 💌
+            </button>
+        </div>
+
+        <!-- Stage 12: FINAL LETTER CARD (Old Stage 11) -->
+        <div id="stage-12" class="hidden w-full max-w-3xl p-8 md:p-12 text-center">
+            <div class="text-8xl mb-6 drop-shadow-lg">💖</div>
+            <h2 class="text-5xl md:text-6xl mb-6 text-pink-200 font-handwritten neon-glow">
+                The Final Message of Love
+            </h2>
+            <!-- Inner puzzle container kept for structure -->
+            <div class="text-left bg-white/5 p-8 rounded-2xl space-y-6 border border-white/10 relative">
+                <h3 class="font-magical text-3xl mb-4 text-red-300/90 text-center">A Special Birthday Wish</h3>
+                
+                <div class="final-card-content" id="final-card-content-wrapper">
+                    <div class="text-to-animate">
+                        <p>HIIIII RIDHII BAZAA OMG ITS YOUR BIRTHDAY OMG MERE BACHE KA BIRHTDYA OMG I AM SO EXCITED AAJ HI TO AYE THE AAP UWA UWA KARTE HUEEE OMG OMG OMG MERA BACH SOO CUTE MERA CUTIE AAP KO ANZAR NA LAGE YOU REMAIN TEH EBST AND I AM SOO GRAATEFULL TO HAVE YOU MY LOVE MERI JAAN MERI EVERYTHING AND MERA KHANA HO AAP MERE RAJMA CHAWAL HO AAP OMG YOU ARE THE BEST RIDHI I NEVER DID THIS FOR ANYONE I FUCKING MADE A WHOLE WEBSITE FOR YOU ITS FUCKING 1000+LINES OF CODES BABY JUST FOR YOU BABY JUST FOR YOU IM REALLY HAPPY I GOT YOU IN MY LIFE I AM GONNA CELEBRATE YOUR BIRTHDAY LIKE A FESTIVAL LIKE YOU CELBRATED MINE AND I AM SO HAPPY TO SEE YOUR FACE EVERYDAY I JUST WANT TO BE WITH YOU RELALY SORRY FOR MY RUDNESS ME APNE BACHE SE BILKUL BHI RUDE NAHI HONA CHAHTA I JUST WANT OT GIVE EVERYTHIGN TO MY BABY MY BABY DESERRVES EVERYTHING AND EVERY LOVE IN THSI WORLD YOU ARE MY RADHA I AM YOUR KRISHNA RADHA KRISHNA AND YOU KNOW RIDHI RADHA KRISHNA WILL STAY ETERNAL AND FOREVER CAUSE LOVE NEVER DIES MERI JAAN LOVE NEVER DIES ATTRATIOON KHTAM HO JATI H BABY BUT LOVE NEVER DIES MERI ABBY I HOPE AAPKA DIN BHOT ACHA JARA HOGA MERI JAAAAAAAAAAAAN HAPPPY BIRTHDAY MY SWEET SOULLL MWAH MWAH MWAH MWAH 💗💕💕😍😍💕💗💗🎀🎀😭😭</p>
+
+                        <p class="text-2xl font-handwritten text-red-400 mt-10 text-right">
+                            - Your Anu
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="final-message-button" onclick="startFinalSequence()" class="pop-button mt-10 px-10 py-4 bg-yellow-500/80 hover:bg-yellow-400/90 text-black text-xl rounded-full shadow-lg animate-pulse">
+                Click for the Grand Finale! 🎉
+            </button>
+        </div>
+
+    </div>
+    
+    <!-- Final Grand Finale Display - Positioned fixed to overlay everything -->
+    <div id="grand-finale-message" class="love-container">
+        <div class="big-heart">❤️</div>
+        <div class="love-text">I LOVE YOU!</div>
+        <div id="love-signature" class="love-signature">
+            - by your pyara anu
+        </div>
+    </div>
+
+    <script>
+        // --- Global State and Initialization ---
+        let currentStage = 1;
+        const totalStages = 12; // Total stages updated to 12
+        const stageElements = {}; 
+        let isCelebrating = false; 
+        let draggedElement = null; 
+        
+        // Puzzle 1: Color Sequence
+        const correctColorSequence = ['pink', 'purple', 'blue'];
+        let currentColorSequence = [];
+
+        // Puzzle 3: Pattern Match (A shape)
+        const correctPattern = [1, 3, 5, 7]; 
+        let currentPattern = [];
+        let patternLock = false;
+
+        // Puzzle 4: Guess the Day
+        const correctDate = '2023-02-14'; 
+
+        // Puzzle 5: Memory Challenge
+        const memoryTilesCount = 12; 
+        const maxSequenceLength = 4;
+        let memorySequence = [];
+        let playerSequence = [];
+        let isPlayingSequence = false;
+        let memoryLock = false;
+
+        // Puzzle 6: Click Counter
+        const targetClicks = 16;
+        let clickCount = 0;
+        let clickLock = false;
+
+        // Puzzle 7: Word Unscramble
+        const correctWord = 'LOVE';
+        const initialLetters = ['V', 'E', 'L', 'O']; 
+        
+        // NEW Puzzle 8: Jigsaw Message
+        const jigsawMessage = [
+            { text: "MY SWEETEST", order: 0 },
+            { text: "LOVE,", order: 1 },
+            { text: "HAPPY", order: 2 },
+            { text: "BIRTHDAY!", order: 3 }
+        ];
+        
+        // --- Core Utility Functions ---
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        /**
+         * Splits text into animated lines (sentences) and applies staggered fly-in animation.
+         * @param {HTMLElement} stageElement - The current stage container.
+         */
+        function animateText(stageElement) {
+            const textContainers = stageElement.querySelectorAll('.text-to-animate p, .text-to-animate h2, .text-to-animate h3');
+            let delay = 0.6; // Start delay after stage fade-in
+
+            textContainers.forEach(p => {
+                // Ensure the parent element has relative position for the spans to inherit context
+                p.style.position = 'relative'; 
+
+                // Use the innerText and trim the whitespace
+                const text = p.innerText.trim();
+                
+                // Simple sentence splitting by punctuation marks or just full text
+                const sentences = text.match(/[^.!?]+[.!?]*/g) || [text]; 
+                
+                // Store original content for resetting before animation
+                if (!p.hasAttribute('data-original-content')) {
+                    p.setAttribute('data-original-content', p.innerHTML);
+                }
+                p.innerHTML = ''; // Clear original content
+
+                sentences.forEach((sentence) => {
+                    const trimmedSentence = sentence.trim();
+                    if (trimmedSentence.length === 0) return;
+                    
+                    const lineWrapper = document.createElement('span');
+                    lineWrapper.classList.add('fly-in-line', 'fly-in-animation');
+                    lineWrapper.textContent = trimmedSentence;
+                    
+                    // Apply original styles from the parent element
+                    const parentClasses = p.className.split(' ').filter(cls => cls !== 'text-to-animate').join(' ');
+                    lineWrapper.className = parentClasses + ' fly-in-line fly-in-animation';
+
+                    // Randomize starting position (simulating 'flying in the sky')
+                    const xStart = getRandomInt(-500, 500) + 'px';
+                    const yStart = getRandomInt(-500, -100) + 'px';
+                    const rStart = getRandomInt(-90, 90) + 'deg';
+                    
+                    lineWrapper.style.setProperty('--x-start', xStart);
+                    lineWrapper.style.setProperty('--y-start', yStart);
+                    lineWrapper.style.setProperty('--r-start', rStart);
+                    lineWrapper.style.animationDelay = `${delay}s`;
+                    
+                    p.appendChild(lineWrapper);
+                    
+                    // Add a tiny space after each sentence to prevent word merging if they end up on the same line
+                    p.innerHTML += ' '; 
+
+                    delay += 0.2; // Staggered delay for each sentence
+                });
+            });
+        }
+
+        // --- Audio Control ---
+        function startMusicAndApp() {
+            const audio = document.getElementById('background-music');
+            const overlay = document.getElementById('audio-overlay');
+            
+            audio.volume = 0.5; // Set volume to 50%
+            
+            // Attempt to play music
+            audio.play().then(() => {
+                console.log("Music started successfully.");
+            }).catch(error => {
+                console.warn("Music play failed (user interaction required for some browsers):", error);
+            });
+            
+            // Hide overlay and show first stage
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                updateStageVisibility(1);
+                // NEW: Attach the balloon spawner listener to the body
+                document.body.addEventListener('click', createFloatingBalloon);
+            }, 500); 
+        }
+        
+        // --- Dynamic Balloon Spawner ---
+        const balloonColors = ['#ef4444', '#3b82f6', '#10b981', '#f97316', '#a855f7', '#f59e0b', '#ec4899', '#6366f1'];
+
+        function createFloatingBalloon(e) {
+            // Check if click event originated from a button or interactive element, if so, skip.
+            if (e.target.closest('button, a, input, .pattern-cell, .drag-tile, .ribbon-container, .memory-tile, .jigsaw-piece') || document.body.classList.contains('blackout')) {
+                return;
+            }
+            
+            const balloonContainer = document.getElementById('balloon-container');
+            const balloon = document.createElement('div');
+            balloon.classList.add('dynamic-balloon');
+
+            // Set random color
+            balloon.style.backgroundColor = balloonColors[getRandomInt(0, balloonColors.length - 1)];
+
+            // Position at click coordinates
+            balloon.style.left = `${e.clientX}px`;
+            balloon.style.top = `${e.clientY}px`;
+
+            // Set end position for animation (random horizontal drift)
+            const endXOffset = getRandomInt(-200, 200);
+            balloon.style.setProperty('--end-x', `${e.clientX + endXOffset}px`);
+
+            balloonContainer.appendChild(balloon);
+
+            // Remove the element after its animation is complete (e.g., 5 seconds)
+            setTimeout(() => {
+                balloon.remove();
+            }, 5000); 
+        }
+
+        // --- Visual Effects (Confetti) ---
+        function showConfetti(targetElement) { 
+            const confettiContainer = document.getElementById('confetti-container');
+            const colors = ['#f87171', '#fcd34d', '#34d399', '#6366f1', '#ec4899', '#a78bfa'];
+            // If targetElement is body, use viewport dimensions
+            const rect = targetElement === document.body ? { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight } : targetElement.getBoundingClientRect();
+            const startY = rect.top + rect.height / 2;
+            const startX = rect.left + rect.width / 2;
+            
+            for (let i = 0; i < 200; i++) { 
+                const piece = document.createElement('div');
+                piece.classList.add('confetti-piece');
+                piece.style.backgroundColor = colors[getRandomInt(0, colors.length - 1)];
+                piece.style.width = `${getRandomInt(5, 15)}px`;
+                piece.style.height = `${getRandomInt(5, 15)}px`;
+                piece.style.top = `${startY}px`;
+                piece.style.left = `${startX}px`;
+                piece.style.borderRadius = `${getRandomInt(0, 1) * 50}%`;
+                
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 500 + 100;
+                const finalXOffset = Math.cos(angle) * distance;
+
+                piece.style.animation = `fall ${getRandomInt(3, 8)}s cubic-bezier(0.1, 0.9, 0.9, 0.1) forwards`;
+                piece.style.setProperty('--fall-x', `${finalXOffset}px`); 
+                piece.style.animationDelay = `${i * 0.01}s`; 
+                confettiContainer.appendChild(piece);
+            }
+            setTimeout(() => { confettiContainer.innerHTML = ''; }, 8000);
+        }
+
+        // --- Grand Finale Orchestration ---
+
+        /** Triggers the grand finale visuals immediately. */
+        function startFinalSequence() {
+            if (isCelebrating) return;
+            isCelebrating = true;
+            
+            // Disable the final button
+            document.getElementById('final-message-button').disabled = true;
+            document.getElementById('final-message-button').textContent = 'Love is the answer.';
+            
+            triggerGrandFinaleVisuals();
+        }
+        
+        /** Triggers the visual effects of the Grand Finale (I LOVE YOU! + Blackout). */
+        function triggerGrandFinaleVisuals() {
+            const mainContainer = document.getElementById('main-container');
+            const signature = document.getElementById('love-signature');
+            
+            // 1. BLACKOUT EFFECT: Transition body background to black and stop gradient
+            document.body.classList.add('blackout');
+            
+            // 2. Hide all game content for focus
+            mainContainer.style.opacity = '0';
+            mainContainer.style.transition = 'opacity 1.5s ease-in-out';
+            
+            // 3. Big I Love You Message and Heart Reveal
+            const bigHeart = document.querySelector('#grand-finale-message .big-heart');
+            const loveText = document.querySelector('#grand-finale-message .love-text');
+
+            setTimeout(() => {
+                bigHeart.style.opacity = '1';
+                showConfetti(document.body); // Trigger confetti over the whole screen
+            }, 500); // Faster reveal
+
+            setTimeout(() => {
+                loveText.style.opacity = '1';
+            }, 1000); // Faster reveal
+            
+            // 4. Signature Reveal
+            setTimeout(() => {
+                signature.style.opacity = '1';
+            }, 3000); 
+        }
+
+        // --- Stage and Core Logic ---
+
+        function updateStageVisibility(stageNumber) {
+            for (let i = 1; i <= totalStages; i++) {
+                const stage = stageElements[`stage-${i}`];
+                if (stage) {
+                    stage.classList.add('hidden');
+                    stage.classList.remove('fade-in');
+                }
+            }
+            const nextStageElement = stageElements[`stage-${stageNumber}`];
+            if (nextStageElement) {
+                // Before showing, reset content if it was previously animated
+                nextStageElement.querySelectorAll('.text-to-animate p, .text-to-animate h2, .text-to-animate h3').forEach(p => {
+                    if (p.hasAttribute('data-original-content')) {
+                        p.innerHTML = p.getAttribute('data-original-content');
+                    }
+                });
+
+                nextStageElement.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    nextStageElement.classList.add('fade-in');
+                });
+                
+                // Trigger the sentence fly-in animation after stage fade-in starts
+                animateText(nextStageElement); 
+                
+                currentStage = stageNumber;
+                window.scrollTo(0, 0); 
+                
+                // Special initialization for specific stages
+                if (stageNumber === 6) {
+                    initMemoryChallenge();
+                } else if (stageNumber === 11) {
+                    initJigsawPuzzle();
+                }
+            }
+        }
+
+        function cutRibbon() {
+            const ribbonLeft = document.getElementById('ribbon-left');
+            const ribbonRight = document.getElementById('ribbon-right');
+            const ribbonContainer = document.getElementById('ribbon-container');
+            const ribbonMessage = document.getElementById('ribbon-message');
+
+            // Apply the cut transition
+            ribbonLeft.style.transform = 'translateX(-150px) rotate(-20deg)';
+            ribbonRight.style.transform = 'translateX(150px) rotate(20deg)';
+            
+            ribbonContainer.onclick = null;
+            ribbonContainer.style.cursor = 'default';
+
+            showConfetti(ribbonContainer); 
+
+            setTimeout(() => {
+                ribbonMessage.classList.remove('hidden');
+            }, 500);
+
+            setTimeout(() => {
+                nextStage(2);
+            }, 2000);
+        }
+        
+        function nextStage(nextStageNumber) {
+            updateStageVisibility(nextStageNumber);
+        }
+
+
+        // --- STAGE 10: CAKE LOGIC ---
+        function blowOutCandles() {
+            const flames = document.querySelectorAll('.flame');
+            flames.forEach(flame => {
+                flame.classList.add('flame-hidden');
+            });
+
+            document.getElementById('blow-candles-btn').disabled = true;
+            document.getElementById('blow-candles-btn').textContent = 'Wish Made! ✨';
+            
+            document.getElementById('wish-indicator').textContent = 'Your wish is granted.';
+            showConfetti(document.getElementById('stage-10'));
+
+            setTimeout(() => {
+                document.getElementById('stage-10-next').classList.remove('hidden');
+            }, 1000);
+        }
+
+        // --- PUZZLE 1: COLOR SEQUENCE LOGIC (Stage 2) ---
+        function handleColorClick(color) {
+            if (document.getElementById('stage-2-next').disabled === false) return;
+            currentColorSequence.push(color);
+            document.getElementById('color-message').textContent = `Clicks: ${currentColorSequence.join(', ')}`;
+
+            let matches = true;
+            for (let i = 0; i < currentColorSequence.length; i++) {
+                if (currentColorSequence[i] !== correctColorSequence[i]) {
+                    matches = false;
+                    break;
+                }
+            }
+
+            if (!matches) {
+                document.getElementById('color-message').textContent = '❌ Incorrect sequence. Resetting...';
+                currentColorSequence = [];
+                setTimeout(() => { document.getElementById('color-message').textContent = ''; }, 1000);
+            } else if (currentColorSequence.length === correctColorSequence.length) {
+                document.getElementById('color-message').textContent = '✅ Lock Unlocked! Proceed.';
+                document.getElementById('stage-2-next').disabled = false;
+            }
+        }
+
+        // --- PUZZLE 2: SLIDER CHALLENGE LOGIC (Stage 3) ---
+        function initSliderPuzzle() {
+            const slider = document.getElementById('magic-slider');
+            const sliderValueDisplay = document.getElementById('slider-value');
+            const nextButton = document.getElementById('stage-3-next');
+            const message = document.getElementById('slider-message');
+            const targetValue = 88;
+
+            slider.oninput = function() {
+                const currentValue = parseInt(this.value);
+                sliderValueDisplay.textContent = currentValue;
+
+                if (currentValue === targetValue) {
+                    message.textContent = '✅ Perfect Match! Key Unlocked.';
+                    nextButton.disabled = false;
+                    slider.disabled = true;
+                } else {
+                    message.textContent = '';
+                    nextButton.disabled = true;
+                }
+            }
+        }
+        
+        // --- PUZZLE 3: PATTERN MATCH LOGIC (Stage 4) ---
+        function handlePatternClick(index) {
+            if (patternLock) return;
+            const cell = document.querySelector(`#pattern-grid .pattern-cell[data-index="${index}"]`);
+            if (!cell) return;
+            cell.classList.add('clicked');
+            setTimeout(() => cell.classList.remove('clicked'), 150);
+            
+            // Check if the clicked index is the next expected index in the sequence
+            const expectedIndex = correctPattern[currentPattern.length];
+            
+            if (index === expectedIndex) {
+                currentPattern.push(index);
+                cell.classList.add('correctly-clicked');
+
+                if (currentPattern.length === correctPattern.length) {
+                    document.getElementById('pattern-message').textContent = '✅ Pattern Complete! Vault Unlocked.';
+                    document.getElementById('stage-4-next').disabled = false;
+                    patternLock = true;
+                    // Disable all cells after success
+                    document.querySelectorAll('.pattern-cell').forEach(c => c.onclick = null);
+                }
+            } else {
+                // If incorrect, show message and reset after a delay
+                document.getElementById('pattern-message').textContent = '❌ Incorrect pattern. Resetting...';
+                currentPattern = [];
+                patternLock = true; 
+                document.querySelectorAll('.pattern-cell').forEach(c => {
+                    c.classList.remove('correctly-clicked');
+                });
+                setTimeout(() => {
+                    document.getElementById('pattern-message').textContent = '';
+                    patternLock = false; 
+                }, 1000);
+            }
+        }
+
+        // --- PUZZLE 4: GUESS THE DAY LOGIC (Stage 5) ---
+        function checkDate() {
+            const dateInput = document.getElementById('date-input');
+            const dateMessage = document.getElementById('date-message');
+            const nextButton = document.getElementById('stage-5-next');
+            
+            if (dateInput.value === correctDate) {
+                dateMessage.textContent = '✅ The correct day! Access Granted.';
+                nextButton.classList.remove('hidden');
+                document.getElementById('stage-5-check').disabled = true;
+                dateInput.disabled = true;
+            } else {
+                dateMessage.textContent = '❌ Incorrect day. Check the clue and try again!';
+                nextButton.classList.add('hidden');
+            }
+        }
+        
+        // --- PUZZLE 5: MEMORY CHALLENGE LOGIC (Stage 6) ---
+        
+        function initMemoryChallenge() {
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < memoryTilesCount; i++) {
+                const tile = document.createElement('div');
+                tile.classList.add('memory-tile');
+                tile.dataset.index = i;
+                tile.addEventListener('click', handleMemoryClick);
+                grid.appendChild(tile);
+            }
+            memorySequence = [];
+            playerSequence = [];
+            document.getElementById('stage-6-next').disabled = true;
+            document.getElementById('memory-message').textContent = 'Press Start to begin.';
+        }
+
+        function generateNextSequenceStep() {
+            if (memorySequence.length >= maxSequenceLength) {
+                return false; // Max sequence reached
+            }
+            const nextTileIndex = getRandomInt(0, memoryTilesCount - 1);
+            memorySequence.push(nextTileIndex);
+            return true;
+        }
+
+        function startMemorySequence() {
+            if (isPlayingSequence || memoryLock) return;
+            
+            document.getElementById('memory-start-btn').disabled = true;
+            playerSequence = []; // Reset player sequence
+            
+            if (!generateNextSequenceStep()) {
+                document.getElementById('memory-message').textContent = 'You have mastered the constellation!';
+                document.getElementById('stage-6-next').disabled = false;
+                memoryLock = true;
+                return;
+            }
+
+            isPlayingSequence = true;
+            document.getElementById('memory-message').textContent = `Watch the sequence (Level ${memorySequence.length})...`;
+            
+            const tiles = document.querySelectorAll('#memory-grid .memory-tile');
+            let delay = 500;
+            
+            // Play the sequence
+            memorySequence.forEach((index, i) => {
+                setTimeout(() => {
+                    tiles[index].classList.add('illuminating');
+                }, delay);
+                delay += 500;
+                setTimeout(() => {
+                    tiles[index].classList.remove('illuminating');
+                    if (i === memorySequence.length - 1) {
+                        isPlayingSequence = false;
+                        document.getElementById('memory-message').textContent = 'Your turn! Repeat the sequence.';
+                    }
+                }, delay);
+                delay += 100; // Small gap between flashes
+            });
+        }
+        
+        function handleMemoryClick(e) {
+            if (isPlayingSequence || memoryLock) return;
+            
+            const tile = e.target;
+            const clickedIndex = parseInt(tile.dataset.index);
+            
+            // Visual feedback
+            tile.classList.add('correct-click');
+            setTimeout(() => tile.classList.remove('correct-click'), 150);
+
+            playerSequence.push(clickedIndex);
+            
+            const currentStep = playerSequence.length - 1;
+            
+            if (playerSequence[currentStep] === memorySequence[currentStep]) {
+                if (playerSequence.length === memorySequence.length) {
+                    // Sequence Correct!
+                    showConfetti(tile);
+                    if (memorySequence.length === maxSequenceLength) {
+                        document.getElementById('memory-message').textContent = '✅ Constellation Mastered! Proceed.';
+                        document.getElementById('stage-6-next').disabled = false;
+                        memoryLock = true;
+                    } else {
+                        document.getElementById('memory-message').textContent = '✅ Correct! Next level in 1 second...';
+                        setTimeout(() => {
+                            startMemorySequence();
+                        }, 1000);
+                    }
+                }
+            } else {
+                // Sequence Incorrect!
+                document.getElementById('memory-message').textContent = '❌ Incorrect! Sequence reset.';
+                memorySequence = [];
+                playerSequence = [];
+                memoryLock = true;
+                setTimeout(() => {
+                    document.getElementById('memory-start-btn').disabled = false;
+                    memoryLock = false;
+                    document.getElementById('memory-message').textContent = 'Try again. Press Start to restart.';
+                }, 1500);
+            }
+        }
+
+
+        // --- PUZZLE 6: CLICK COUNTER LOGIC (Stage 7) ---
+        function handleClickCounter() {
+            if (clickLock) return;
+            clickCount++;
+            document.getElementById('click-count').textContent = clickCount;
+
+            if (clickCount < targetClicks) {
+                document.getElementById('click-message').textContent = `Keep going! Need ${targetClicks - clickCount} more clicks.`;
+            } else if (clickCount === targetClicks) {
+                document.getElementById('click-message').textContent = '✅ EXACTLY 16! Gate Opened!';
+                document.getElementById('stage-7-next').classList.remove('hidden');
+                document.getElementById('click-btn').disabled = true;
+                clickLock = true;
+            } else {
+                document.getElementById('click-message').textContent = '❌ Too many clicks! Resetting...';
+                document.getElementById('click-btn').disabled = true;
+                setTimeout(() => {
+                    clickCount = 0;
+                    document.getElementById('click-count').textContent = clickCount;
+                    document.getElementById('click-message').textContent = '';
+                    document.getElementById('click-btn').disabled = false;
+                }, 1500);
+            }
+        }
+
+        // --- PUZZLE 7: WORD UNSCRAMBLE DRAG/DROP LOGIC (Stage 9) ---
+        function initUnscramblePuzzle() {
+            const dragContainer = document.getElementById('drag-container');
+            dragContainer.innerHTML = '';
+            
+            const shuffledLetters = [...initialLetters].sort(() => Math.random() - 0.5);
+
+            shuffledLetters.forEach(letter => {
+                const tile = document.createElement('div');
+                tile.classList.add('drag-tile');
+                tile.setAttribute('draggable', true);
+                tile.setAttribute('data-letter', letter);
+                tile.id = `tile-${crypto.randomUUID()}`;
+                tile.textContent = letter;
+                tile.addEventListener('dragstart', handleDragStart);
+                tile.addEventListener('dragend', handleDragEnd); 
+                dragContainer.appendChild(tile);
+            });
+
+            document.querySelectorAll('.drop-target-unscramble').forEach(target => {
+                target.addEventListener('dragover', handleDragOver);
+                target.addEventListener('dragleave', handleDragLeave);
+                target.addEventListener('drop', handleDropUnscramble);
+            });
+        }
+        
+        // Generic drag start/end handlers for all drag puzzles
+        function handleDragStart(e) {
+            if (e.target.classList.contains('drag-tile') || e.target.classList.contains('jigsaw-piece')) {
+                draggedElement = e.target; 
+                e.dataTransfer.setData('text/plain', e.target.id); 
+                e.dataTransfer.setData('text/drag-type', e.target.classList.contains('drag-tile') ? 'unscramble' : 'jigsaw'); 
+                e.target.style.opacity = '0.5';
+            } else {
+                e.preventDefault();
+            }
+        }
+        
+        function handleDragEnd(e) {
+            if (draggedElement) {
+                draggedElement.style.opacity = '1';
+                draggedElement = null; 
+            }
+        }
+        
+        // Generic drag over/leave handlers for all drop puzzles
+        function handleDragOver(e) {
+            e.preventDefault(); 
+            if (e.currentTarget.children.length === 0) {
+                e.currentTarget.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDropUnscramble(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            
+            const tileToDrop = draggedElement; 
+            if (!tileToDrop || !tileToDrop.classList.contains('drag-tile')) return; // Check if it's the correct type
+
+            // Only allow drop if target is empty
+            if (e.currentTarget.children.length === 0) { 
+                e.currentTarget.appendChild(tileToDrop);
+                tileToDrop.style.opacity = '1';
+                draggedElement = null;
+                checkUnscrambleArrangement();
+            } else {
+                tileToDrop.style.opacity = '1';
+                draggedElement = null;
+            }
+        }
+
+        function checkUnscrambleArrangement() {
+            const dropTargets = [
+                document.getElementById('drop-1'),
+                document.getElementById('drop-2'),
+                document.getElementById('drop-3'),
+                document.getElementById('drop-4'),
+            ];
+            
+            let currentWord = '';
+            let allFilled = true;
+
+            dropTargets.forEach(target => {
+                if (target.children.length === 1) {
+                    const tile = target.children[0];
+                    currentWord += tile.getAttribute('data-letter');
+                } else {
+                    allFilled = false;
+                }
+            });
+
+            const nextButton = document.getElementById('stage-9-next');
+            const message = document.getElementById('unscramble-message');
+
+            if (allFilled) {
+                if (currentWord === correctWord) {
+                    message.textContent = '✅ LOVE! Message Confirmed.';
+                    nextButton.disabled = false;
+                    document.querySelectorAll('.drag-tile').forEach(t => t.setAttribute('draggable', false));
+                } else {
+                    message.textContent = `❌ That spells ${currentWord}. Keep trying!`;
+                    nextButton.disabled = true;
+                }
+            } else {
+                message.textContent = 'Place all four letters.';
+                nextButton.disabled = true;
+            }
+        }
+        
+        // --- NEW PUZZLE 8: JIGSAW PUZZLE DRAG/DROP LOGIC (Stage 11) ---
+
+        function initJigsawPuzzle() {
+            const sourceContainer = document.getElementById('jigsaw-source');
+            const targetContainer = document.getElementById('jigsaw-target-container');
+            sourceContainer.innerHTML = '';
+            targetContainer.innerHTML = '';
+            
+            const shuffledPieces = shuffleArray([...jigsawMessage]);
+
+            // 1. Create Drop Targets
+            jigsawMessage.forEach((piece, index) => {
+                const target = document.createElement('div');
+                target.classList.add('jigsaw-piece-target');
+                target.setAttribute('data-correct-order', index);
+                target.textContent = 'Piece ' + (index + 1); // Placeholder hint
+                target.addEventListener('dragover', handleDragOver);
+                target.addEventListener('dragleave', handleDragLeave);
+                target.addEventListener('drop', handleDropJigsaw);
+                targetContainer.appendChild(target);
+            });
+
+            // 2. Create Draggable Pieces
+            shuffledPieces.forEach(piece => {
+                const tile = document.createElement('div');
+                tile.classList.add('jigsaw-piece');
+                tile.setAttribute('draggable', true);
+                tile.setAttribute('data-order', piece.order);
+                tile.id = `jigsaw-tile-${piece.order}`;
+                tile.textContent = piece.text;
+                tile.addEventListener('dragstart', handleDragStart);
+                tile.addEventListener('dragend', handleDragEnd); 
+                sourceContainer.appendChild(tile);
+            });
+            
+            document.getElementById('jigsaw-message').textContent = 'Drag the pieces below into the correct message order above.';
+            document.getElementById('stage-11-next').disabled = true;
+        }
+        
+        function handleDropJigsaw(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            
+            const tileToDrop = draggedElement; 
+            if (!tileToDrop || !tileToDrop.classList.contains('jigsaw-piece')) return; // Check type
+
+            const targetOrder = parseInt(e.currentTarget.getAttribute('data-correct-order'));
+            const pieceOrder = parseInt(tileToDrop.getAttribute('data-order'));
+
+            // Check if the target is empty AND the piece order matches the target order
+            if (e.currentTarget.children.length === 0) { 
+                if (pieceOrder === targetOrder) {
+                    // Correct Placement
+                    e.currentTarget.appendChild(tileToDrop);
+                    tileToDrop.style.opacity = '1';
+                    tileToDrop.setAttribute('draggable', false);
+                    e.currentTarget.textContent = ''; // Clear placeholder hint
+                    draggedElement = null;
+                    checkJigsawCompletion();
+                } else {
+                    // Incorrect Placement
+                    document.getElementById('jigsaw-message').textContent = '❌ Wrong spot! Try another position.';
+                    tileToDrop.style.opacity = '1';
+                    draggedElement = null;
+                    setTimeout(() => document.getElementById('jigsaw-message').textContent = '', 1500);
+                }
+            } else {
+                // Target is full
+                tileToDrop.style.opacity = '1';
+                draggedElement = null;
+            }
+        }
+        
+        function checkJigsawCompletion() {
+            const dropTargets = document.querySelectorAll('#jigsaw-target-container .jigsaw-piece-target');
+            let completed = true;
+            
+            dropTargets.forEach(target => {
+                if (target.children.length === 0) {
+                    completed = false;
+                }
+            });
+
+            const nextButton = document.getElementById('stage-11-next');
+            const message = document.getElementById('jigsaw-message');
+
+            if (completed) {
+                message.textContent = '✅ Message Revealed! The final stage awaits.';
+                nextButton.disabled = false;
+                showConfetti(document.getElementById('stage-11'));
+            }
+        }
+
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            for (let i = 1; i <= totalStages; i++) {
+                stageElements[`stage-${i}`] = document.getElementById(`stage-${i}`);
+            }
+            
+            initSliderPuzzle();
+            initUnscramblePuzzle();
+            // Jigsaw and Memory challenges are initialized when their stages are loaded
+        });
+
+    </script>
+</body>
+</html>
